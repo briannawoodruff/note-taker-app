@@ -63,6 +63,35 @@ app.post('/api/notes', (req, res) => {
     writeToFile(savedNotes)
 });
 
+// DELETE /api/notes/:id should receive a query parameter that contains the id of a note to delete.
+app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id
+
+    if (id) {
+        console.info(`${req.method} request received to delete note`);
+
+        // looping over json to find ids
+        for (let i = 0; i < savedNotes.length; i++) {
+            const currentID = savedNotes[i];
+            // matching the request id to delete to id in db.json
+            if (currentID.id === id) {
+                // sends JSON back to index.js
+                res.send(currentID);
+
+                // removes the object with that id
+                savedNotes.splice(i, 1);
+
+                // writes to file after deletion
+                writeToFile(savedNotes)
+        
+                return;
+            }
+        }
+        // error if no ids are found
+        res.status(404).json('ID not found');
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
 });
