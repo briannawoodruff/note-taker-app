@@ -11,3 +11,69 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static('public'));
+
+// GET * should return the index.html file.
+app.get('/', (req, res) =>
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+
+// GET /notes should return the notes.html file.
+app.get('/notes', (req, res) =>
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
+// GET /api/notes should read the db.json file and return all saved notes as JSON.
+app.get('/api/notes', (req, res) => {
+    res.status(200).json(savedNotes);
+});
+
+// POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client.
+app.post('/api/notes', (req, res) => {
+    // Log that a POST request was received
+    console.info(`${req.method} request received to add a note`);
+
+    // Destructuring assignment for the items in req.body
+    const { title, text } = req.body; // object destructuring
+
+    // If all the required properties are present
+    if (title && text) {
+        // Variable for the object we will save
+        const newNote = {
+            title,
+            text,
+            // random id assigned
+            id: Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1),
+        };
+
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+
+        // pushes newNote to JSON
+        savedNotes.push(newNote)
+
+        // sends response back to index.js
+        res.status(201).json(response);
+    }
+
+    // appends JSON to db.json file
+    writeToFile(savedNotes)
+});
+
+app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`);
+});
+
+// TODO: Create a function to write to db.json 
+function writeToFile(notes) {
+    let data = JSON.stringify(notes);
+
+    console.log("JSON data:", data);
+
+    fs.writeFileSync('./db/db.json', data + "\n", (err) =>
+        err ? console.log(err) : console.log('Success!')
+    );
+}
