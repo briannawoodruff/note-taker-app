@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const savedNotes = require('./db/db.json');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Sets up the Express app to handle data parsing
@@ -102,7 +102,7 @@ function writeToFile(notes) {
 
     console.log("JSON data:", data);
 
-    fs.writeFileSync('./db/db.json', data + "\n", (err) =>
+    fs.writeFileSync('./db/db.json', data, (err) =>
         err ? console.log(err) : console.log('Success!')
     );
 }
