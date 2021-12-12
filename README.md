@@ -2,7 +2,7 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   ## Description:
-  Deployed: <br /><br /> The motivation behind this project was to create an application where a user is able to write and save notes to more efficiently organize and keep track of thoughts and tasks. This Note Taker app uses Express.js to retrieve notes saved into a created database. The inputed note appears immediately to the side and is able to be deleted. <br /><br />  For future development of this project, I would like to add MomentJS and a time feature and a way to reorder notes.
+  Deployed: https://note-taker-app-bw.herokuapp.com/ <br /><br /> The motivation behind this project was to create an application where a user is able to write and save notes to more efficiently organize and keep track of thoughts and tasks. This Note Taker app uses Express.js to retrieve notes saved into a created database. The inputed note appears immediately to the side and is able to be deleted. <br /><br />  For future development of this project, I would like to add a time feature and a way to reorder notes.
   <br />
 
   ## Table of Contents:
@@ -14,7 +14,7 @@
   * [Questions](#questions)
 
   ## Installation:
-  This application is deployed on Heroku: 
+  This application is deployed on Heroku: https://note-taker-app-bw.herokuapp.com/
   <br /> No installation is required.
   <br />
   
